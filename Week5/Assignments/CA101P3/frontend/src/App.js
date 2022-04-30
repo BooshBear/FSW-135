@@ -16,7 +16,6 @@ export default function App(){
           <Route path="/" element={<Auth />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/issues"element={<Issues />}/>
-
       </Routes>
     </div>
   )

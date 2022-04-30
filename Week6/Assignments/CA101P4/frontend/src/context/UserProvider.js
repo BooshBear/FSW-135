@@ -42,6 +42,13 @@ export default function UserProvider(props){
       .catch(err => handleAuthErr(err.response.data.errMsg))
   }
 
+  function resetAuthErr() {
+    setUserState(prevState => ({
+      ...prevState,
+      errMsg: ''
+    }))
+  }
+
   function login(credentials){
     axios.post("/auth/login", credentials)
       .then(res => {
@@ -73,7 +80,8 @@ export default function UserProvider(props){
         ...userState,
         signup,
         login,
-        logout
+        logout,
+        resetAuthErr
       }}>
       { props.children }
     </UserContext.Provider>

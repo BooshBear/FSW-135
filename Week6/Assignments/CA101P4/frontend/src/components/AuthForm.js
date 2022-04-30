@@ -4,7 +4,7 @@ export default function AuthForm(props){
   const {
     handleChange, 
     handleSubmit, 
-    btnText,
+    btnText, 
     errMsg,
     inputs: {
       username, 
