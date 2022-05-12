@@ -2,12 +2,18 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const commentSchema = new Schema({
-    issueid:{
+    comment:{
         type: String,
         required: true
     },
-    comment:{
-        type: String,
+    issueid:{
+        type: Schema.Types.ObjectId,
+        ref: "Issue",
+        required: true
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true
     }
 })

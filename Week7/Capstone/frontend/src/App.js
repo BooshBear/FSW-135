@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Navbar from './components/Navbar.js'
-import Auth from './components/Auth.js'
+import Navbar from './components/navbar.js'
+import Auth from './components/access/Auth.js'
 import Profile from './components/Profile.js'
 import { UserContext } from './context/UserProvider.js'
-import ProtectedRoute from './components/ProtectedRoutes.js'
-import IssueForm from './components/IssueForm.js'
+import ProtectedRoute from './components/protectedRoutes.js'
+import PostedIssues from './components/issueStuff/PostedIssues.js'
 
 export default function App(){
   const { token, logout } = useContext(UserContext)
 
   return (
-    <div className="app">
+    <div className='flex justify-center mt-10 bg-gray-50 h-screen'>
       <Navbar logout={logout}/>
       <Routes>
         <Route path="/" element={token ? (
@@ -27,7 +27,7 @@ export default function App(){
             </ProtectedRoute>
           }
         />
-        <Route path="/issues"element={<IssueForm />}/>
+        <Route path="/issues"element={<PostedIssues/>}/>
       </Routes>
     </div>
   )

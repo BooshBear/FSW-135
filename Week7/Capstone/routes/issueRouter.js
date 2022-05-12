@@ -1,8 +1,8 @@
 const express = require("express");
-const Issue = require("../modules/issue");
 const issueRouter = express.Router();
+const Issue = require("../modules/issue");
 
-// Get All issue
+// Get All Issues
 issueRouter.get("/", (req, res, next) => {
     Issue.find((err, issues) => {
       if(err){
@@ -14,8 +14,9 @@ issueRouter.get("/", (req, res, next) => {
   })
   
   // Get issue by user id
-  issueRouter.get("/user", (req, res, next) => {
-    Issue.find({ user: req.user._id }, (err, issues) => {
+  issueRouter.get("/user/:userId", (req, res, next) => {
+    const userId = req.params.userId
+    Issue.find({ user: userId }, (err, issues) => {
       if(err){
         res.status(500)
         return next(err)
@@ -24,11 +25,11 @@ issueRouter.get("/", (req, res, next) => {
     })
   })
   
-  // Add new issue
-  issueRouter.post("/", (req, res, next) => {
-    console.log(req.user)
-    req.body.user = req.user._id
-    const newIssue = new issue(req.body)
+  // Add new Issue
+  issueRouter.post("/:userId", (req, res, next) => {
+    const userId = req.params.userId
+    req.body.user = userId
+    const newIssue = new Issue(req.body)
     newIssue.save((err, savedIssue) => {
       if(err){
         res.status(500)
@@ -38,16 +39,16 @@ issueRouter.get("/", (req, res, next) => {
     })
   })
   
-  // Delete issue
+  // Delete Issue
   issueRouter.delete("/:issueId", (req, res, next) => {
     Issue.findOneAndDelete(
-      { _id: req.params.issueId, user: req.user._id },
+      { _id: req.params.issueId},
       (err, deletedIssue) => {
         if(err){
           res.status(500)
           return next(err)
         }
-        return res.status(200).send(`Successfully delete the Issue: ${deletedIssue.title}`)
+        return res.status(200).send(`Successfully delete the Issue: ${deletedIssue}`)
       }
     )
   })
@@ -55,7 +56,7 @@ issueRouter.get("/", (req, res, next) => {
   // Update Issue
   issueRouter.put("/:issueId", (req, res, next) => {
     Issue.findOneAndUpdate(
-      { _id: req.params.issueId, user: req.user._id },
+      { _id: req.params.issueId},
       req.body,
       { new: true },
       (err, updatedIssue) => {

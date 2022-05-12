@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
-import AuthForm from './AuthForm.js'
+import AuthForm from './authForm.js'
 
-import { UserContext } from '../context/UserProvider.js'
+import { UserContext } from '../../context/UserProvider.js'
 
 const initInputs = { username: "", password: "" }
 
@@ -35,8 +35,8 @@ export default function Auth(){
   }
   
   return (
-    <div className="auth-container">
-      <h1>App</h1>
+    <div className="flex flex-col justify-around text-center border-2 border-black shadow-xl m-8 h-72 w-80 bg-slate-500">
+      <h1 className="text-xl">Climate Control</h1>
       { !toggle ?
         <>
           <AuthForm 
@@ -46,7 +46,7 @@ export default function Auth(){
             btnText="Sign up"
             errMsg={errMsg}
           />
-          <p onClick={() => toggleForm()}>Already a member?</p>
+          <p className="text-blue-800 hover:text-black" onClick={() => toggleForm()}>Already a member?</p>
         </>
       :
         <>
@@ -57,7 +57,7 @@ export default function Auth(){
             btnText="Login"
             errMsg={errMsg}
           />
-          <p onClick={() => toggleForm()}>Not a member?</p>
+          <p className="text-blue-700 hover:text-black" onClick={() => toggleForm()}>Not a member?</p>
         </>
       }
     </div>
